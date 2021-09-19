@@ -15,20 +15,22 @@ class Table {
 
 	public const OBJECTS = 'getObjects';
 
-    public string $id;
+    public const TYPE_INT = 'int';
 
-    public string $createdAt;
+    public const TYPE_STRING = 'str';
 
-    public string $updatedAt;
+    public $id;
+
+    public $createdAt;
+
+    public $updatedAt;
 
 	use TableTrait;
 
     public static function init(
         string $database, string $table, Json $json
     ): self {
-        $table = new self($database, $table, $json);
-
-        return $table;
+        return new self($database, $table, $json);
     }
 
 }

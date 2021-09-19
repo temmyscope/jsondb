@@ -15,29 +15,31 @@ use \Exception;
 class JsonDB {
 
     /**
+     * @param string $directory
      * @param string $database
      * @param string|null $table
      * @example usage: JsonDB::init('doubleh', 'users');
     */
 
-    public static function init(string $database, string | null $table)
-    {   
-        $json = new Json($database);
-
+    public static function init(string $directory, string $database, string | null $table = '')
+    {
+        $json = new Json($database, $directory);
         if (!empty($table)) {
             return Table::init($database, $table, $json);
         }
         return Database::init($database, $json);
     }
 
-    public static function list(): array
+    public static function list(string $directory): array
     {
+        Directory::setDirectory($directory);
         return Directory::List();
     }
 
-    public static function count(): int
+    public static function count(string $directory): int
     {
-        return count(static::list());
+        Directory::setDirectory($directory);
+        return count(static::list($directory));
     }
 
     /**
@@ -45,9 +47,9 @@ class JsonDB {
     * 
     */
 
-    public static function make(string $database): bool
+    public static function make(string $directory, string $database): bool
     {
-        return Directory::create($database);
+        return (Directory::setDirectory($directory))->create($database);
     }
 
     /**
@@ -55,11 +57,12 @@ class JsonDB {
     * 
     */
 
-    public static function delete(string $database): bool
+    public static function delete(string $database, string $directory): bool
     {
-        static::empty($database);
-        Directory::delete($database);
-        return true;
+        return (
+            static::empty($database, $directory) && 
+            (Directory::setDirectory($directory))->delete($database)
+        );
     }
 
     /**
@@ -68,9 +71,9 @@ class JsonDB {
     * @return void
     */
 
-    public static function empty(string $database): void
+    public static function empty(string $database, string $directory): bool
     {
-        Directory::flush($database);
+        return (Directory::setDirectory($directory))->flush($database);
     }
 
 }

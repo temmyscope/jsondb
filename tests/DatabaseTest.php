@@ -9,25 +9,25 @@ class DatabaseTest extends TestCase
 {
 
     public function setUp(): void{
-        //JsonDB::make('tests');
-        $this->database = JsonDB::init('tests');
+        $this->database = JsonDB::init(__DIR__.'/../db', 'tests');
     }
 
     public function testTableTransactions()
     {
-        $table = $this->database->create('users', [
+        $table = $this->database->createTable('users', [
             'name', 'email', 'password', 'token'
         ]);
+
         $this->assertTrue($table);
 
         $tables = $this->database->getTables();
-        $this->assertTrue(is_array($tables));
-    }
 
-    public function testMeta()
-    {
+        $this->assertTrue(is_array($tables));
+
+        //$deleted = $this->database->deleteTable('users');
+        //$this->assertTrue($deleted);
+
         $metadata = $this->database->metadata();
-        //$this->assertSame(is_array($metadata));
         $this->assertTrue(is_array($metadata));
     }
 

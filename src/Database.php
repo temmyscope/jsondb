@@ -12,8 +12,7 @@ class Database {
 	
 	public static function init(string $database, Json $json): self
 	{
-		$db = new self($database, $json);
-		return $db;
+		return new self($database, $json);
 	}
 
 }

@@ -1,9 +1,8 @@
 <?php
 namespace Seven\JsonDB\Traits;
 
-use Seven\JsonDB\Json;
+use Seven\JsonDB\{Json, Table};
 use Seven\Vars\Strings;
-use Seven\JsonDB\Utils\File;
 
 trait Database {
 
@@ -13,12 +12,9 @@ trait Database {
     {
     }
 
-    public function addToSchema(string $table, array $schema): bool
+    public function setTable(string $table): Table
     {
-        if( (new File())->append($table, database: $this->database, data: $schema)){
-            return true;
-        }
-        return false;
+        return Table::init($this->database, $table, $this->json);
     }
 
     /**
@@ -29,10 +25,13 @@ trait Database {
     * @example $schema [ 'name', 'username', 'email' ]; id,createdAt & updatedAt are auto-generated
     */
 
-    public function create(string $table, array $schema = []): bool {
-        $this->json->create($table);
+    public function createTable(string $table, array $schema = []): bool {
+        $this->json->createTable($table);
         if (!empty($schema)) {
-            $this->add2Schema($table, ['id', ...$schema, 'createdAt', 'updatedAt']);
+            $this->json->appendToSchema(
+                database: $this->database, table: $table,
+                data: ['id', ...$schema, 'createdAt', 'updatedAt']
+            );
         }
         return true;
     }
@@ -52,8 +51,8 @@ trait Database {
         ];
     }
 
-    public function delete(string $table): bool{
-        $this->json->delete($table);
+    public function deleteTable(string $table): bool{
+        $this->json->deleteTable($table);
         return true;
     }
 

@@ -34,9 +34,9 @@ $data = [
 ```php
 use Seven\JsonDB\JsonDB;
 
-$db = JsonDB::init('database');
+$db = JsonDB::init($directory, $database);
 
-$table = JsonDB::init(database: 'database', table: 'table');
+$table = JsonDB::init($directory, $database, $table);
 
 ```
 
@@ -47,7 +47,7 @@ $table = JsonDB::init(database: 'database', table: 'table');
 ```php
 use Seven\JsonDB\JsonDB;
 
-$newDB = JsonDB::make('database_name'): string;
+$newDB = JsonDB::make($directory, $database): string;
 #returns database name if successfully created
 ```
 
