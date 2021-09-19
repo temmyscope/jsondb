@@ -93,6 +93,15 @@ class Json extends Directory{
         return false;
     }
 
+    public function overwrite(string $table, array $data): bool
+    {
+        $jsonTable = $this->pathToDB.$table.'.json';
+        if(file_put_contents($jsonTable, json_encode($data))){
+            return true;
+        }
+        return false;
+    }
+
     public function fetchTables(): array
     {
         $files = glob("{$this->pathToDB}*.json");

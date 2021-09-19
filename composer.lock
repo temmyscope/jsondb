@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48041f14681ceb4dc4f2776c0bbc3f93",
+    "content-hash": "bfb71a7fb874aadebdfcf83d37a4e074",
     "packages": [
         {
             "name": "sevens/vars",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/temmyscope/vars.git",
-                "reference": "6ff76951cce0c2f6533ffd8a73eb32e5f852bdc1"
+                "reference": "5f96d11a3574b5ba40a9d24e90390ee7d662f1dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/temmyscope/vars/zipball/6ff76951cce0c2f6533ffd8a73eb32e5f852bdc1",
-                "reference": "6ff76951cce0c2f6533ffd8a73eb32e5f852bdc1",
+                "url": "https://api.github.com/repos/temmyscope/vars/zipball/5f96d11a3574b5ba40a9d24e90390ee7d662f1dd",
+                "reference": "5f96d11a3574b5ba40a9d24e90390ee7d662f1dd",
                 "shasum": ""
             },
             "require": {
@@ -53,9 +53,9 @@
             ],
             "support": {
                 "issues": "https://github.com/temmyscope/vars/issues",
-                "source": "https://github.com/temmyscope/vars/tree/v1.0.0"
+                "source": "https://github.com/temmyscope/vars/tree/v1.1.0"
             },
-            "time": "2020-11-14T17:00:58+00:00"
+            "time": "2021-09-19T18:36:00+00:00"
         }
     ],
     "packages-dev": [

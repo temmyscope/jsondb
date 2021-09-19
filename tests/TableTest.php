@@ -13,8 +13,8 @@ class TableTest extends TestCase
         );
         $this->table = $this->database->setTable('users');
     }
-    /*
-    public function testSave()
+    
+    public function testModifiers()
     {
         //$this->table->id = 1;
         $this->table->name = 'Elisha Temiloluwa';
@@ -23,18 +23,30 @@ class TableTest extends TestCase
         $this->table->token = 'R4ND0Mt0k3n';
         $id = $this->table->save();
         $this->assertTrue(is_string($id));
-    }*/
+
+        $this->assertTrue(is_string($this->table->insert([
+            'email' => 'sammy@hotmail.com', 'name' => 'Sam Orji',
+            'password' => hash('SHA256', 'passphr4s3'), 'token' => '3ncrypt3d'
+        ])));
+
+        $this->assertTrue(
+            is_array(
+                $this->table->update(
+                    ['token' => 'D3crypt3d'], 
+                    ['email' => 'ajlee@gmail.com']
+                )
+            )
+        );
+    }
 
     public function testMisc()
     {
         $id = $this->table->lastInsertId();
 
         $newIntId = $this->table->generateId(Table::TYPE_INT);
-        $newStringId = $this->table->generateId(Table::TYPE_INT);
+        $newStringId = $this->table->generateId(Table::TYPE_STRING);
 
-        $time = Table::generateTime();
-        $this->assertTrue(is_string($time));
-        var_dump($id);
+        $this->assertTrue(is_string(Table::generateTime()));
         $this->assertTrue(!empty($id));
         $this->assertTrue(is_int($newIntId));
         $this->assertTrue(is_string($newStringId));
@@ -45,7 +57,6 @@ class TableTest extends TestCase
         $res = $this->table->search([
             'email' => 'Esdentp@gmail.com'
         ]);
-        var_dump($res);
         $one = $this->table->findOne([
             'email' => 'Esdentp@gmail.com'
         ]);
@@ -53,19 +64,19 @@ class TableTest extends TestCase
             'email' => 'Esdentp@gmail.com'
         ]);
         $all = $this->table->find([
-            'email' => 'Esdentp@gmail.com'
+            'email' => 'esdentp@gmail.com'
         ]);
         $first = $this->table->first([
             'email' => 'Esdentp@gmail.com'
         ]);
         $oneById = $this->table->findById('38a92f92b1268c64');
+
         $this->assertTrue(is_array($res));
         $this->assertTrue(is_array($one));
         $this->assertTrue(is_array($last));
         $this->assertTrue(is_array($all));
         $this->assertTrue(is_array($first));
-        $this->assertTrue(is_array($oneById));
-        $this->assertTrue(empty($oneById));
+        $this->assertTrue(is_object($oneById) || is_array($oneById));
     }
     
 }
