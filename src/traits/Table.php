@@ -205,7 +205,7 @@ trait Table {
 
 		$remnant = !empty($condition) ? $array->excludeBy($condition)->get() : [];
 
-		if($this->json->write($this->table, $remnant)){
+		if($this->json->overwrite($this->table, $remnant)){
 			return true;
 		}
 		return false;
