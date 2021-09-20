@@ -36,7 +36,11 @@ use Seven\JsonDB\JsonDB;
 
 $db = JsonDB::init($directory, $database);
 
-$table = JsonDB::init($directory, $database, $table);
+$table = JsonDB::init($directory, $database, $tblName);
+
+//OR
+
+$table = $db->setTable($tblName);
 
 ```
 
@@ -47,9 +51,23 @@ $table = JsonDB::init($directory, $database, $table);
 ```php
 use Seven\JsonDB\JsonDB;
 
-$newDB = JsonDB::make($directory, $database): string;
+$newDB = JsonDB::make(string $directory, $database): string;
 #returns database name if successfully created
 ```
+
+	- Create Table
+
+*** use this syntax to create a table ***
+
+```php
+$schema = [
+	'name', 'email', 'password'
+];
+$table->createTable($table, $schema);
+
+//To use the 'save' method, you need to use a schema when creating a table
+```
+***Note: id, createdAt and updatedAt are auto-generated fields but you can generate them as well***
 
 	- List all databases
 
@@ -58,7 +76,7 @@ $newDB = JsonDB::make($directory, $database): string;
 ```php
 use Seven\JsonDB\JsonDB;
 
-$newDB = JsonDB::list(): array;
+$newDB = JsonDB::list(string $directory): array;
 #returns an array of databases found
 ```
 	- Count number of databases
@@ -68,7 +86,7 @@ $newDB = JsonDB::list(): array;
 ```php
 use Seven\JsonDB\JsonDB;
 
-$newDB = JsonDB::count(): int;
+$newDB = JsonDB::count(string $directory): int;
 #returns number of databases found
 ```
 
@@ -79,7 +97,7 @@ $newDB = JsonDB::count(): int;
 ```php
 use Seven\JsonDB\JsonDB;
 
-$newDB = JsonDB::delete('database_name'): bool;
+$newDB = JsonDB::delete($directory, $db): bool;
 #returns true name if successfully deleted
 ```
 
@@ -90,19 +108,71 @@ $newDB = JsonDB::delete('database_name'): bool;
 ```php
 use Seven\JsonDB\JsonDB;
 
-$newDB = JsonDB::empty('database'): void;
+$newDB = JsonDB::empty($directory, $db): void;
 #returns database name if successfully created
 ```
 
-	- 
+### Table Operations
+
+	- Generate an Id
+
+```php
+use Seven\JsonDB\Table;
+
+$table->generateId(Table::TYPE_STRING || Table::TYPE_INT);
+
+//default is Table::TYPE_STRING
+```
+
+	- Get Last Insert Id
+
+```php
+$table->lastInsertId();
+```
 
 
+	- Save Data In the Table: Only works on tables that were created with schema
 
+```php
+//$table->id = 1;
+$table->name = 'Elisha Temiloluwa';
+$table->email = 'Elisha@gmail.com';
+$table->password = hash('SHA256', 'password');
+$table->save();
+```
 
+	- Insert Data In the Table
 
+```php
+$table->insert([
+	'email' => 'sammy@hotmail.com', 'name' => 'Sam Orji', 
+	'password' => hash('SHA256', 'passphr4s3'),
+]);
+```
+	- Find items in the table using certain conditions
 
+```php
+$table->find([
+	'email' => 'Elisha@gmail.com'
+], );
+```
 
+	- Find items in the table using id
 
+```php
 
+```
+	
+	- Find items in the table using certain conditions
+	
+```php
+
+```
+
+	- Find items in the table using certain conditions
+
+```php
+
+```
 
 
