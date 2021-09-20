@@ -2,7 +2,7 @@
     "name": "sevens/jsondb",
     "description": "Simple Php Test JSON Database; useful for development mode testing",
     "type": "library",
-    "version": "v0.1.1",
+    "version": "v0.1.0",
     "license": "MIT",
     "minimum-stability": "stable",
     "config": {
