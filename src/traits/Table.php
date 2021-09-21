@@ -82,7 +82,7 @@ trait Table {
 		$arrays = Arrays::init($tableContent);
 		$updatedIds = [];
 
-		$arrays->map(function($arrayIterator) use ($updatedIds, $condition){
+		$arrays->map(function($arrayIterator) use ($updatedIds, $condition, $update){
 			foreach($condition as $key => $value ) {
 				if ( array_key_exists($key, $arrayIterator) && $arrayIterator[$key] === $value) {
 					$updatedIds[] = $arrayIterator['id'];
